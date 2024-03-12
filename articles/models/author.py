@@ -4,10 +4,7 @@ class Author:
             raise TypeError("Name must be of type str")
         if len(name) == 0:
             raise ValueError("Name must be longer than 0 characters")
-        if not hasattr(self, "_name"):
-            self._name = name
-        else:
-            raise ValueError("Name cannot be changed after the author is instantiated")
+        self._name = name
 
     @property
     def name(self):
@@ -15,5 +12,8 @@ class Author:
 
     @property
     def articles(self):
-        # code to return a list of all the articles the author has written
-        pass
+        return [article for article in Article.all_articles if article.author == self]
+
+    @property
+    def magazines(self):
+        return list(set(article.magazine for article in self.articles))
